@@ -5,7 +5,7 @@ require("dotenv").config();
 
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true }, async () => {
   try {
-    console.log("DB ✅");
+    await console.log("DB ✅");
   } catch (error) {
     console.log(error);
   }

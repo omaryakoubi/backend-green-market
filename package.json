@@ -1,0 +1,22 @@
+{
+  "name": "backend-green-market",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start" : "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omaryakoubi/backend-green-market.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omaryakoubi/backend-green-market/issues"
+  },
+  "homepage": "https://github.com/omaryakoubi/backend-green-market#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

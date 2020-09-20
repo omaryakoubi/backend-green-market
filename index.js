@@ -1,7 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const app = express();
+const bodyParser = require("body-parser");
+const add_product = require("./routes/newProduct");
 require("dotenv").config();
+
+const app = express();
 
 mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true, useUnifiedTopology: true },async () => {
     try {
@@ -13,8 +16,9 @@ mongoose.connect(process.env.DB_URL,{ useNewUrlParser: true, useUnifiedTopology:
 );
 
 // MIDDLEWARES
-const add_product = require("./routes/newProduct");
+app.use(bodyParser.json())
 app.use("/admin", add_product);
+
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`server started on port ${process.env.PORT || 5000}`);

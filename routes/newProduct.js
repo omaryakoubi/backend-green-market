@@ -10,7 +10,9 @@ module.exports = router.post("/new-product", async (req, res) => {
       description: req.body.description,
       price: req.body.price,
     }).save();
+    res.status(201).send("product saved");
   } catch (error) {
     console.log(error);
+    res.status(406);
   }
 });

@@ -4,8 +4,9 @@ const product = require("../model/product");
 
 module.exports = router.get("/all-products", async (req, res) => {
   try {
-    await product.find({}, (req, res, data) => {
-      res.send(res.json(data));
+    await product.find({}, (data) => {
+      console.log(data);
+      res.send(data);
     });
   } catch (error) {
     console.log(error);

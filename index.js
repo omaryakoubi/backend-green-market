@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const add_product = require("./routes/newProduct");
-const productList = require("./model/product");
+const productList = require("./routes/productList");
 require("dotenv").config();
 
 const app = express();

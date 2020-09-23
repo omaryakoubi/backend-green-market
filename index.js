@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const helmet = require("helmet");
 const add_product = require("./routes/newProduct");
 const productList = require("./routes/productList");
 require("dotenv").config();
@@ -20,6 +22,8 @@ mongoose.connect(
 );
 
 // MIDDLEWARES
+app.use(morgan("combined"));
+app.use(helmet());
 app.use(bodyParser.json());
 app.use("/admin", add_product);
 app.use("/user", productList);

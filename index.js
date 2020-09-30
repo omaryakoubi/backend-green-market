@@ -23,8 +23,8 @@ mongoose.connect(
 
 // MIDDLEWARES
 app.use(morgan("combined"));
-app.use(helmet());
 app.use(bodyParser.json());
+app.use(helmet());
 app.use("/admin", add_product);
 app.use("/user", productList);
 

@@ -26,9 +26,7 @@ router.put("edit-product:id", async (req, res) => {
       product: productEdited,
     });
   } catch (error) {
-    res.json({
-      error: error,
-    });
+    res.json({ error });
   }
 });
 
@@ -36,12 +34,11 @@ router.delete("edit-product/:id", async (req, res) => {
   try {
     const id = req.params.id;
     await findOneAndDelete(id);
-    res.send("product deleted");
+    res.json({ message: "product deleted" });
   } catch (error) {
     res.send(error);
     console.log(error);
   }
 });
-
 
 module.exports = router;

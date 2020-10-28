@@ -28,6 +28,7 @@ app.use(helmet());
 app.use("/admin", add_product);
 app.use("/user", productList);
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log(`server started on port ${process.env.PORT || 5000}`);
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
 });

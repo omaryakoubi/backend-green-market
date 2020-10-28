@@ -4,11 +4,12 @@ const product = require("../model/product");
 
 module.exports = router.post("/new-product", async (req, res) => {
   try {
+    const { name, category, description, price } = req.body
     await new product({
-      name: req.body.name,
-      category: req.body.category,
-      description: req.body.description,
-      price: req.body.price,
+      name,
+      category,
+      description,
+      price,
     }).save();
     res.status(201).send("product saved");
   } catch (error) {

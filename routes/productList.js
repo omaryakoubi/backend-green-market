@@ -4,10 +4,10 @@ const product = require("../model/product");
 
 module.exports = router.get("all-products", async (req, res) => {
   try {
-    await product.find({ name: "omar" }, (list) => {
-      res.send(list);
-    });
+    const productsList = await product.find({});
+    res.send(productsList);
   } catch (error) {
     console.log(error);
+    res.send("error");
   }
 });

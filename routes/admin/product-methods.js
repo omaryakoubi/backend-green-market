@@ -4,13 +4,16 @@ const product = require("../../model/product");
 router.post("/new-product", async (req, res) => {
   try {
     const { name, category, description, price } = req.body;
-    await new product({
+    const newProduct = await new product({
       name,
       category,
       description,
       price,
     }).save();
-    res.status(201).send("product saved");
+    res.status(201).json({
+      message: "product saved",
+      newProduct,
+    });
   } catch (error) {
     res.send(error);
     console.log(error);
@@ -36,7 +39,7 @@ router.delete("edit-product/:id", async (req, res) => {
     await findOneAndDelete(id);
     res.json({ message: "product deleted" });
   } catch (error) {
-    res.send(error);
+    res.json({ error });
     console.log(error);
   }
 });

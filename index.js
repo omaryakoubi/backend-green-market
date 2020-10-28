@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const helmet = require("helmet");
 require("dotenv").config();
-
 const app = express();
 
 // # DATABESE CONNECTION #
@@ -17,14 +16,21 @@ mongoose.connection.once("open", () => {
   console.log("MongoDB connected");
 });
 
+
 // MIDDLEWARES
 app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use(helmet());
 
+// # SHARE API MIDDLEWARES#
+const sharedProductMethods = require("./routes/shared/product-methods")
+app.use("/app",sharedProductMethods)
+
+
 // # ADMIN API MIDDLEWARES #
-const productMethods = require("./routes/admin/product-methods");
-app.use("/app/admin", productMethods);
+const adminProductMethods = require("./routes/admin/product-methods");
+app.use("/app/admin", adminProductMethods);
+
 
 //# PORT VARIABLE AND SERVER LISTENING #
 const PORT = process.env.PORT || 5000

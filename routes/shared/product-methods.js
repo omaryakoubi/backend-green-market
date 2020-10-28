@@ -11,11 +11,13 @@ router.get("all-products", async (req, res) => {
   }
 });
 
-router.get("product-informations/:id", async(req, res) => {
-    const id = req.params.id
-    const productInformations = await product.findById({id})
-    res.json({
-        message: productInformation,
-        productInformations
-    })
+router.get("product-informations/:id", async (req, res) => {
+  const id = req.params.id;
+  const productInformations = await product.findById({ id });
+  res.json({
+    message: productInformation,
+    productInformations,
+  });
 });
+
+module.exports = router;

@@ -22,11 +22,9 @@ app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use(helmet());
 
-// # API MIDDLEWARES #
-const add_product = require("./routes/addProduct");
-const productList = require("./routes/productList");
-app.use("/admin", add_product);
-app.use("/user", productList);
+// # ADMIN API MIDDLEWARES #
+const productMethods = require("./routes/admin/product-methods");
+app.use("/app/admin", productMethods);
 
 //# PORT VARIABLE AND SERVER LISTENING #
 const PORT = process.env.PORT || 5000

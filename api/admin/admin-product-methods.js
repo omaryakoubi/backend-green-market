@@ -33,7 +33,7 @@ router.put("edit-product:id", async (req, res) => {
   }
 });
 
-router.delete("edit-product/:id", async (req, res) => {
+router.delete("delete-product/:id", async (req, res) => {
   try {
     const id = req.params.id;
     await findOneAndDelete(id);

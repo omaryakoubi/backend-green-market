@@ -4,8 +4,9 @@ const user = require("../../model/user");
 
 router.post("/register", async (req,res) => {
     try {   
-        const { firstName, lastName, email, password, passwordConfirmation, phoneNumber }
+        const { firstName, lastName, email, password, passwordConfirmation, phoneNumber } = req.body;
         const availableMail = await user.findOne({email})
+        console.log(firstName, lastName, password, email, passwordConfirmation, phoneNumber);
         const availablePhoneNumber = await user.findOne({phoneNumber})
         
         if (!availableMail) {

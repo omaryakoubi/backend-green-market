@@ -25,9 +25,10 @@ app.use(helmet());
 // # ADMIN API MIDDLEWARES #
 const adminProductMethods = require("./api/admin/admin-product-methods");
 const productMethods = require("./api/user/product-methods")
+const authentication = require("./api/user/authentication")
 app.use("/app/admin", adminProductMethods);
 app.use("/app",productMethods)
-
+app.use("/app", authentication)
 
 //# PORT VARIABLE AND SERVER LISTENING #
 const PORT = process.env.PORT || 5000

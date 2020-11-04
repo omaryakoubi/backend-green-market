@@ -4,7 +4,7 @@ const user = require("../../model/user");
 
 router.post("/register", async (req, res) => {
   try {
-    const {
+    let {
       firstName,
       lastName,
       email,
@@ -12,6 +12,7 @@ router.post("/register", async (req, res) => {
       passwordConfirmation,
       phoneNumber,
     } = req.body;
+
     const emailRegistered = await user.findOne({ email });
     const phoneNumberRegistered = await user.findOne({ phoneNumber });
 
@@ -26,26 +27,22 @@ router.post("/register", async (req, res) => {
     if (password !== passwordConfirmation) {
       res.send("try again your password are not the same");
     } else {
-      const hashedPassword = await bcrypt.hashSync(
-        passwordConfirmation,
-        10,
-        (err, salt) => {
-          if (err) {
-            console.log(error);
-          } else {
-            password = hashedPassword;
-          }
+      await bcrypt.hash(passwordConfirmation, 10, (err, hash) => {
+        if (err) {
+          console.log(error);
+        } else {
+          password = hash;
+          const newUser = new user({
+            firstName,
+            lastName,
+            email,
+            password,
+            phoneNumber,
+          }).save();
+
+          res.send(newUser);
         }
-      );
-      const newUser = new user({
-        firstName,
-        lastName,
-        email,
-        password,
-        phoneNumber,
-      }).save();
-      
-      res.send(newUser);
+      });
     }
   } catch (error) {
     res.json(error);

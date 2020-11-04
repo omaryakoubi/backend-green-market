@@ -1,16 +1,35 @@
 const router = require("express").Router();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const user = require("../../model/user");
 
-router.post("/register", (req, res) => {
-  const { firstName, lastName, email, password, phoneNumber } = req.body;
-  const availableMail = user.findOne({firstName});
-  
-  new user({
-      firstName,
-      lastName,
-      email,
-      phoneNumber
-  });
-});
+router.post("/register", async (req,res) => {
+    try {   
+        const { firstName, lastName, email, password, passwordConfirmation, phoneNumber }
+        const availableMail = await user.findOne({email})
+        const availablePhoneNumber = await user.findOne({phoneNumber})
+        
+        if (!availableMail) {
+            res.json({message:"address mail already registred"})
+        }
+        
+        if (!availablePhoneNumber) {
+            res.json({message:"phone number already registred"})
+        }
+        if (password !== passwordConfirmation ) {
+            res.json({message:"try again your password are not the same"})
+        } else {
+            new user({
+                firstName,
+                lastName,
+                email,
+                password,
+                phoneNumber
+            })
+        }
+
+    } catch(error) {
+        res.json(error);
+        console.log(error);
+    }
+})
+
+module.exports = routers

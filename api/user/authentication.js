@@ -22,22 +22,26 @@ router.post("/register", async (req, res) => {
       phoneNumber
     );
     const availablePhoneNumber = await user.findOne({ phoneNumber });
-
+    console.log(availableMail, "OMAR WAS HERE!");
     if (!availableMail) {
-      res.json({ message: "address mail already registred" });
+      res.send("address mail already registred");
     }
 
     if (!availablePhoneNumber) {
-      res.json({ message: "phone number already registred" });
+      res.send("phone number already registred");
     }
     if (password !== passwordConfirmation) {
-      res.json({ message: "try again your password are not the same" });
+      res.send("try again your password are not the same");
     } else {
       const hashedPassword = await bcrypt.hashSync(
         passwordConfirmation,
         10,
         (err, salt) => {
-          password = hashedPassword;
+          if (err) {
+            console.log(error);
+          } else {
+            password = hashedPassword;
+          }
         }
       );
       new user({

@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const bcrypt = require("bcrypt");
 const user = require("../../model/user");
 
 router.post("/register", async (req,res) => {
@@ -17,13 +18,17 @@ router.post("/register", async (req,res) => {
         if (password !== passwordConfirmation ) {
             res.json({message:"try again your password are not the same"})
         } else {
+
+            const hashedPassword = await bcrypt.hashSync(passwordConfirmation,10, (err, salt) => {
+                password = hashedPassword;
+            })
             new user({
                 firstName,
                 lastName,
                 email,
                 password,
                 phoneNumber
-            })
+            }).save()
         }
 
     } catch(error) {

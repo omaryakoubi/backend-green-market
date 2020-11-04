@@ -12,24 +12,17 @@ router.post("/register", async (req, res) => {
       passwordConfirmation,
       phoneNumber,
     } = req.body;
-    const availableMail = await user.findOne({ email });
-    console.log(
-      firstName,
-      lastName,
-      password,
-      email,
-      passwordConfirmation,
-      phoneNumber
-    );
-    const availablePhoneNumber = await user.findOne({ phoneNumber });
-    console.log(availableMail, "OMAR WAS HERE!");
-    if (!availableMail) {
+    const emailRegistered = await user.findOne({ email });
+    const phoneNumberRegistered = await user.findOne({ phoneNumber });
+
+    if (emailRegistered) {
       res.send("address mail already registred");
     }
 
-    if (!availablePhoneNumber) {
+    if (phoneNumberRegistered) {
       res.send("phone number already registred");
     }
+
     if (password !== passwordConfirmation) {
       res.send("try again your password are not the same");
     } else {
@@ -44,13 +37,15 @@ router.post("/register", async (req, res) => {
           }
         }
       );
-      new user({
+      const newUser = new user({
         firstName,
         lastName,
         email,
         password,
         phoneNumber,
       }).save();
+      
+      res.send(newUser);
     }
   } catch (error) {
     res.json(error);
